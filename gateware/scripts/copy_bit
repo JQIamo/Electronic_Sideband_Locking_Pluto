@@ -1,0 +1,5 @@
+#!/bin/sh
+cp ./build/pluto.runs/impl_1/system_top.bit .
+bootgen -w -image ./scripts/system_top.bif -arch zynq -process_bitstream bin
+scp system_top.bit.bin root@192.168.2.1:/lib/firmware/.
+scp ./scripts/configure_FPGA.sh  root@192.168.2.1:/root

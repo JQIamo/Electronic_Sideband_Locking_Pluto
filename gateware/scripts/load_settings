@@ -1,0 +1,2 @@
+#!/bin/sh
+scp load_esb_settings.sh  root@192.168.2.1:/root

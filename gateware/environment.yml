@@ -1,0 +1,45 @@
+name: pluto_env_test
+channels:
+  - defaults
+  - conda-forge
+dependencies:
+  - _libgcc_mutex=0.1=conda_forge
+  - _openmp_mutex=4.5=2_kmp_llvm
+  - blas=2.116=openblas
+  - blas-devel=3.9.0=16_linux64_openblas
+  - bzip2=1.0.8=h5eee18b_6
+  - ca-certificates=2024.3.11=h06a4308_0
+  - expat=2.6.2=h6a678d5_0
+  - ld_impl_linux-64=2.39=hc81fddc_0
+  - libblas=3.9.0=16_linux64_openblas
+  - libcblas=3.9.0=16_linux64_openblas
+  - libffi=3.4.4=h6a678d5_1
+  - libgcc-ng=12.2.0=h65d4601_19
+  - libgfortran-ng=12.2.0=h69a702a_19
+  - libgfortran5=12.2.0=h337968e_19
+  - liblapack=3.9.0=16_linux64_openblas
+  - liblapacke=3.9.0=16_linux64_openblas
+  - libopenblas=0.3.21=pthreads_h78a6416_3
+  - libstdcxx-ng=12.2.0=h46fd767_19
+  - libuuid=1.41.5=h5eee18b_0
+  - libzlib=1.2.13=h166bdaf_4
+  - llvm-openmp=15.0.5=he0ac6c6_0
+  - ncurses=6.4=h6a678d5_0
+  - numpy-base=1.26.4=py312he1a6c75_0
+  - openblas=0.3.21=pthreads_h320a7e8_3
+  - openssl=3.0.13=h7f8727e_1
+  - python=3.12.3=h996f2a0_0
+  - readline=8.2=h5eee18b_0
+  - sqlite=3.45.3=h5eee18b_0
+  - tk=8.6.14=h39e8969_0
+  - tzdata=2024a=h04d1e81_0
+  - xz=5.4.6=h5eee18b_1
+  - zlib=1.2.13=h166bdaf_4
+  - pip:
+    - colorama==0.4.6
+    - migen==0.9.1
+    - numpy==1.26.4
+    - pip==23.3.1
+    - setuptools==68.2.2
+    - wheel==0.43.0
+    - git+https://github.com/m-labs/misoc.git@a53859f2167c31ab5225b6c09f30cf05527b94f4

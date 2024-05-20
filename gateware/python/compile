@@ -1,0 +1,6 @@
+#!/bin/bash
+python ./esbl_with_PDH_out_hi_res.py
+awk '{gsub(/readmemh\("/, "readmemh(\"../../../../")} 1' phase_generator.v > tmp
+mv -f tmp phase_generator.v
+mv -f phase_generator.v ../build
+mv -f *.init ../build

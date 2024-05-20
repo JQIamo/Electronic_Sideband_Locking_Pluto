@@ -1,0 +1,2 @@
+# The build folder must never be committed. 
+build/
