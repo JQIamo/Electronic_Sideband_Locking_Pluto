@@ -94,6 +94,42 @@ remove_files  ./pluto.srcs/sources_1/imports/hdl/system_wrapper.v
 file delete -force ./pluto.srcs/sources_1/imports/hdl/system_wrapper.v
 add_files -norecurse ../hdl/system_wrapper.v
 
+# Adding the I/Q offset capability
+
+startgroup
+create_bd_cell -type ip -vlnv xilinx.com:ip:c_addsub:12.0 c_addsub_0
+endgroup
+connect_bd_net [get_bd_pins arbitrary_register_0/i_offset] [get_bd_pins c_addsub_0/B]
+set_property name i_add [get_bd_cells c_addsub_0]
+copy_bd_objs /  [get_bd_cells {i_add}]
+set_property name q_add [get_bd_cells i_add1]
+set_property location {7 2993 406} [get_bd_cells q_add]
+startgroup
+set_property -dict [list CONFIG.B_Width.VALUE_SRC USER CONFIG.A_Width.VALUE_SRC USER] [get_bd_cells i_add]
+set_property -dict [list CONFIG.Implementation {DSP48} CONFIG.A_Width {16} CONFIG.B_Width {16} CONFIG.Latency {2} CONFIG.CE {false} CONFIG.A_Width {16} CONFIG.B_Width {16} CONFIG.Out_Width {16} CONFIG.Latency {2} CONFIG.B_Value {0000000000000000}] [get_bd_cells i_add]
+endgroup
+delete_bd_objs [get_bd_cells q_add]
+copy_bd_objs /  [get_bd_cells {i_add}]
+set_property location {6 2874 248} [get_bd_cells i_add1]
+connect_bd_net [get_bd_pins arbitrary_register_0/q_offset] [get_bd_pins i_add1/B]
+connect_bd_net [get_bd_pins i_add/CLK] [get_bd_pins axi_ad9361/l_clk]
+set_property name q_add [get_bd_cells i_add1]
+set_property location {6 2876 144} [get_bd_cells i_add]
+delete_bd_objs [get_bd_nets phase_generator_0_q]
+delete_bd_objs [get_bd_nets phase_generator_0_i]
+connect_bd_net [get_bd_pins phase_generator_0/i] [get_bd_pins i_add/A]
+connect_bd_net [get_bd_pins q_add/A] [get_bd_pins phase_generator_0/q]
+connect_bd_net [get_bd_pins i_add/S] [get_bd_pins axi_ad9361/dac_data_i0]
+startgroup
+connect_bd_net [get_bd_pins q_add/S] [get_bd_pins axi_ad9361/dac_data_q0]
+endgroup
+connect_bd_net [get_bd_pins q_add/CLK] [get_bd_pins axi_ad9361/l_clk]
+
+
+
+
+
+
 # Saving the modified design
 
 update_compile_order -fileset sources_1

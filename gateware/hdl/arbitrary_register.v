@@ -22,6 +22,8 @@
 		output [31:0] frequency,
 		output [31:0] phase_PDH,
 		output [31:0] multiplier,
+		output [15:0] i_offset,
+		output [15:0] q_offset,
 		
 		
 
@@ -84,7 +86,8 @@
 		.phase_difference(phase_difference),
 		.frequency(frequency),
 		.phase_PDH(phase_PDH),
-		.multiplier(multiplier)
+		.multiplier(multiplier),
+		.i_q_offsets({i_offset,q_offset})
 	);
 
 	// Add user logic here

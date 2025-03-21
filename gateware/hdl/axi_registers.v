@@ -21,6 +21,7 @@
 		output [31:0] frequency,
 		output [31:0] phase_PDH,
 		output [31:0] multiplier,
+		output [31:0] i_q_offsets,
 		// User ports ends
 		// Do not modify the ports beyond this line
 
@@ -115,6 +116,7 @@
 	reg [C_S_AXI_DATA_WIDTH-1:0]	slv_reg3;
 	reg [C_S_AXI_DATA_WIDTH-1:0]	slv_reg4;
 	reg [C_S_AXI_DATA_WIDTH-1:0]	slv_reg5;
+	reg [C_S_AXI_DATA_WIDTH-1:0]	slv_reg6;
 	wire	 slv_reg_rden;
 	wire	 slv_reg_wren;
 	reg [C_S_AXI_DATA_WIDTH-1:0]	 reg_data_out;
@@ -233,6 +235,7 @@
 	      slv_reg3 <= 0;
 	      slv_reg4 <= 0;
 	      slv_reg5 <= 0;
+	      slv_reg6 <= 0;
 	    end 
 	  else begin
 	    if (slv_reg_wren)
@@ -279,7 +282,14 @@
 	                // Respective byte enables are asserted as per write strobes 
 	                // Slave register 5
 	                slv_reg5[(byte_index*8) +: 8] <= S_AXI_WDATA[(byte_index*8) +: 8];
-	              end  
+	              end
+	          3'h6:
+	            for ( byte_index = 0; byte_index <= (C_S_AXI_DATA_WIDTH/8)-1; byte_index = byte_index+1 )
+	              if ( S_AXI_WSTRB[byte_index] == 1 ) begin
+	                // Respective byte enables are asserted as per write strobes 
+	                // Slave register 5
+	                slv_reg6[(byte_index*8) +: 8] <= S_AXI_WDATA[(byte_index*8) +: 8];
+	              end   
 	          default : begin
 	                      slv_reg0 <= slv_reg0;
 	                      slv_reg1 <= slv_reg1;
@@ -287,6 +297,8 @@
 	                      slv_reg3 <= slv_reg3;
 	                      slv_reg4 <= slv_reg4;
 	                      slv_reg5 <= slv_reg5;
+	                      slv_reg6 <= slv_reg6;
+	                      
 	                    end
 	        endcase
 	      end
@@ -401,6 +413,7 @@
 	        3'h3   : reg_data_out <= slv_reg3;
 	        3'h4   : reg_data_out <= slv_reg4;
 	        3'h5   : reg_data_out <= slv_reg5;
+	        3'h6   : reg_data_out <= slv_reg6;
 	        default : reg_data_out <= 0;
 	      endcase
 	end
@@ -433,6 +446,7 @@
 	assign frequency = slv_reg3;
 	assign phase_PDH = slv_reg4;
 	assign multiplier = slv_reg5;
+	assign i_q_offsets = slv_reg6;
  
     
     
